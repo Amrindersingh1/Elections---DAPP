@@ -9,7 +9,9 @@ contract Election {
     }
 
 
-    // Store Candidate
+    event votedEvent (
+        uint indexed _candidateId
+    );
 
 
     // Store accounts that have voted
@@ -34,6 +36,7 @@ contract Election {
 
     }
 
+    
     function vote(uint _candidateId) public  {
         // require that they haven't voted before
         require(!voters[msg.sender]);
@@ -46,5 +49,10 @@ contract Election {
 
         // update candidate vote Count
         candidates[_candidateId].voteCount ++;
+
+        // trigger voted event
+        emit votedEvent(_candidateId);
     }
+
+    
 }
